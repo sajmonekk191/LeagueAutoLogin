@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using LeagueAutoLogin.Essentials;
 
@@ -8,9 +9,13 @@ namespace LeagueAutoLogin
 {
     public partial class Form1 : Form
     {
-        public static IntPtr handle;
+        private Point Position;
+        private IntPtr handle;
+        const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        const int MOUSEEVENTF_LEFTUP = 0x04;
+        uint X = (uint)Cursor.Position.X;
+        uint Y = (uint)Cursor.Position.Y;
         private string CLIENT_WINDOW_NAME = "Riot Client Main";
-        private string LEAGUE_WINDOW_NAME = "League of Legends";
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +37,7 @@ namespace LeagueAutoLogin
                 passTB.Text = Properties.Settings.Default.Password;
                 executeCB.Checked = Properties.Settings.Default.AutoExecute;
                 savelogCB.Checked = Properties.Settings.Default.SaveData;
+                Values.LeaguePath = Properties.Settings.Default.Path;
             }
             catch { }
         }
@@ -60,41 +66,114 @@ namespace LeagueAutoLogin
                 Values.autologin_data = false;
                 Properties.Settings.Default.SaveData = Values.autologin_data;
             }
+            Properties.Settings.Default.Path = Values.LeaguePath;
             Properties.Settings.Default.Save();
         }
         private void ExecuteLeague()
         {
             Process[] p_Client = Process.GetProcessesByName(CLIENT_WINDOW_NAME);
-            Process[] p_League = Process.GetProcessesByName(LEAGUE_WINDOW_NAME);
-            string LeaguePath = "C:\\Riot Games\\Riot Client\\RiotClientServices.exe";
             if (p_Client.Length == 0)
             {
-                Process.Start(LeaguePath);
-                ClientStart:
-                try
+                Process.Start(Values.LeaguePath);
+            }
+
+            try
+            {
+                FindPatern:
+                handle = Imports.FindWindow(null, CLIENT_WINDOW_NAME);
+                Imports.SetForegroundWindow(handle);
+                SelectWhere("Login");
+                SelectWhere("MyGames");
+                SelectWhere("Play");
+                if (Values.playSucc) return;
+                goto FindPatern;
+            }
+            catch { };
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+            {
+                openFileDialog1.InitialDirectory = "c:\\";
+                openFileDialog1.Filter = "RiotClientServices.exe|*.exe";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    Rectangle rect;
-                    handle = Imports.FindWindow(null, CLIENT_WINDOW_NAME);
-                    Imports.SetForegroundWindow(p_Client[0].MainWindowHandle);
-                    Imports.GetWindowRect(handle, out rect);
-                    Point Position = ScreenCapture.PixelSearch(rect, Values.RiotClient_Find);
+                    Values.LeaguePath = openFileDialog1.FileName;
+                }
+            }
+        }
+        private Point FindLocation(Color col)
+        {
+            Rectangle rect;
+            Imports.GetWindowRect(handle, out rect);
+            rect = new Rectangle(rect.X, rect.Y, rect.Width - rect.X, rect.Height - rect.Y);
+            Position = ScreenCapture.PixelSearch(rect, col);
+            if(Position != new Point(0, 0))
+            {
+                return new Point(Position.X, Position.Y);
+            }
+            return new Point(0, 0);
+        }
+        private bool SelectWhere(string pos)
+        {
+            switch(pos)
+            {
+                case "Login":
+                    Position = FindLocation(Values.RiotClient_Find);
                     if (Position != new Point(0, 0))
                     {
                         Cursor.Position = new Point(Position.X + 120, Position.Y - 110);
+                        Thread.Sleep(20);
+                        Imports.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                        SendKeys.Send(Values.username);
+                        Cursor.Position = new Point(Position.X + 120, Position.Y - 50);
+                        Thread.Sleep(20);
+                        Imports.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                        SendKeys.Send(Values.password);
+                        Thread.Sleep(20);
+                        Cursor.Position = new Point(Position.X + 140, Position.Y + 330);
+                        Imports.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                        Values.loginSucc = true;
+                        return true;
                     }
-                    else { goto ClientStart; }
-                }
-                catch { goto ClientStart; }
-                
-            }
-            else
-            {
+                    break;
 
+                case "MyGames":
+                    Position = FindLocation(Values.RiotClient_MyGames);
+                    if (Position != new Point(0, 0))
+                    {
+                        Cursor.Position = new Point(Position.X, Position.Y);
+                        Thread.Sleep(20);
+                        Imports.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                        Values.mygamesSucc = true;
+                        return true;
+                    }
+                    break;
+                case "Play":
+                    Position = FindLocation(Values.RiotClient_Play);
+                    if (Position != new Point(0, 0))
+                    {
+                        Cursor.Position = new Point(Position.X, Position.Y);
+                        Thread.Sleep(20);
+                        Imports.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                        Values.playSucc = true;
+                        SelectWhere("Reset");
+                        return true;
+                    }
+                    break;
+                case "Reset":
+                    if (Values.playSucc)
+                    {
+                        Values.loginSucc = false;
+                        Values.mygamesSucc = false;
+                        Values.playSucc = false;
+                        return true;
+                    }
+                    break;
             }
-        }
-        private void CheckWhereIsLeague()
-        {
-
+            return false;
         }
     }
 }

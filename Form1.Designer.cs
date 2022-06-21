@@ -36,6 +36,8 @@ namespace LeagueAutoLogin
             this.userLBL = new System.Windows.Forms.Label();
             this.passLBL = new System.Windows.Forms.Label();
             this.executeCB = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // autologinBTN
@@ -93,18 +95,39 @@ namespace LeagueAutoLogin
             // executeCB
             // 
             this.executeCB.AutoSize = true;
-            this.executeCB.Location = new System.Drawing.Point(56, 165);
+            this.executeCB.Location = new System.Drawing.Point(45, 165);
             this.executeCB.Name = "executeCB";
             this.executeCB.Size = new System.Drawing.Size(206, 19);
             this.executeCB.TabIndex = 6;
             this.executeCB.Text = "AutoLogin when League Executed";
             this.executeCB.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(266, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(19, 22);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "🥄";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(201, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Setup Path";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 202);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.executeCB);
             this.Controls.Add(this.passLBL);
             this.Controls.Add(this.userLBL);
@@ -133,6 +156,8 @@ namespace LeagueAutoLogin
         private System.Windows.Forms.Label userLBL;
         private System.Windows.Forms.Label passLBL;
         private System.Windows.Forms.CheckBox executeCB;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

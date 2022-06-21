@@ -16,6 +16,7 @@ namespace LeagueAutoLogin.Essentials
                 GFX.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, CopyPixelOperation.SourceCopy);
                 using (FastBitmap bitmap = new FastBitmap(BMP))
                 {
+                    bitmap.Save("vc.png");
                     for (int i = 0; i < bitmap.Length; i++)
                     {
                         if (searchvalue == bitmap.GetI(i))

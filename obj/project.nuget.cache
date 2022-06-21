@@ -1,14 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "+XjHQF9BaP2PO4R71woHFo5bR863jMmqTSV43QLsC0+D6IU5BLbCbmsNxT/9JIp6wWJtKLKsnVEm4gAvwd6+wQ==",
+  "dgSpecHash": "uwdkJSnqb+sZkP/nTxtP7/tlJZw7MdpD1TwkLot3C8FYnkiN9B9cRhZcX0r5bmCw6I5anIJ++r8XZkMAYpur3g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon.novak\\source\\repos\\LeagueAutoLogin\\LeagueAutoLogin\\LeagueAutoLogin.csproj",
+  "projectFilePath": "C:\\Users\\Root\\Desktop\\LeagueAutoLogin-main\\LeagueAutoLogin.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\simon.novak\\.nuget\\packages\\hazdryx.fastbitmap\\1.3.2\\hazdryx.fastbitmap.1.3.2.nupkg.sha512",
-    "C:\\Users\\simon.novak\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
-    "C:\\Users\\simon.novak\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
-    "C:\\Users\\simon.novak\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
-    "C:\\Users\\simon.novak\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512"
+    "C:\\Users\\Root\\.nuget\\packages\\hazdryx.fastbitmap\\1.3.2\\hazdryx.fastbitmap.1.3.2.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.22\\microsoft.netcore.app.host.win-x64.3.1.22.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\Root\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
   ],
   "logs": []
 }
