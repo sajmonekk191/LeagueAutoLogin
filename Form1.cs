@@ -75,6 +75,7 @@ namespace LeagueAutoLogin
                 {
                     Rectangle rect;
                     handle = Imports.FindWindow(null, CLIENT_WINDOW_NAME);
+                    Imports.SetForegroundWindow(p_Client[0].MainWindowHandle);
                     Imports.GetWindowRect(handle, out rect);
                     Point Position = ScreenCapture.PixelSearch(rect, Values.RiotClient_Find);
                     if (Position != new Point(0, 0))
